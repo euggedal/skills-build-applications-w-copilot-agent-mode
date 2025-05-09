@@ -5,11 +5,14 @@ class User(models.Model):
     username = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=100)
+    team = models.ForeignKey('Team', on_delete=models.CASCADE, related_name='members', null=True)
 
 class Team(models.Model):
     _id = models.ObjectIdField()
     name = models.CharField(max_length=100)
-    members = models.ArrayReferenceField(to=User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
 
 class Activity(models.Model):
     _id = models.ObjectIdField()

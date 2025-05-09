@@ -35,6 +35,22 @@ class Command(BaseCommand):
         for user in users:
             team.members.add(user)
 
+        # Create Team Red
+        team_red = Team(_id=ObjectId(), name='Red Team')
+        team_red.save()
+
+        # Add members to Team Red
+        red_team_users = [
+            User(_id=ObjectId(), username='redwarrior', email='redwarrior@mhigh.edu', password='redwarriorpassword'),
+            User(_id=ObjectId(), username='redmage', email='redmage@mhigh.edu', password='redmagepassword'),
+            User(_id=ObjectId(), username='redarcher', email='redarcher@mhigh.edu', password='redarcherpassword'),
+            User(_id=ObjectId(), username='redknight', email='redknight@mhigh.edu', password='redknightpassword'),
+            User(_id=ObjectId(), username='redsorcerer', email='redsorcerer@mhigh.edu', password='redsorcererpassword'),
+        ]
+        User.objects.bulk_create(red_team_users)
+        for user in red_team_users:
+            team_red.members.add(user)
+
         # Create activities
         activities = [
             Activity(_id=ObjectId(), user=users[0], activity_type='Cycling', duration=timedelta(hours=1)),
